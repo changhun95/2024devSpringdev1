@@ -187,10 +187,10 @@ jobs:
         run: docker build -t changhun .
 
       - name: Docker 이미지에 Tag 붙이기
-        run: docker tag changhun ${381492268966.dkr.ecr.ap-northeast-2.amazonaws.com/changhun}/changhun:latest
+        run: docker tag changhun 381492268966.dkr.ecr.ap-northeast-2.amazonaws.com/changhun:latest
 
       - name: ECR에 Docker 이미지 Push하기
-        run: docker push ${381492268966.dkr.ecr.ap-northeast-2.amazonaws.com/changhun}/changhun:latest
+        run: docker push 381492268966.dkr.ecr.ap-northeast-2.amazonaws.com/changhun:latest
 
       - name: SSH로 EC2에 접속하기
         uses: appleboy/ssh-action@v1.0.3
@@ -201,5 +201,5 @@ jobs:
           script: |
             ls -a
             sudo docker rm -f changhun
-            sudo docker pull ${381492268966.dkr.ecr.ap-northeast-2.amazonaws.com/changhun}/changhun:latest
+            sudo docker pull 381492268966.dkr.ecr.ap-northeast-2.amazonaws.com/changhun:latest
             sudo docker run -d --name changhun -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:mysql://3.35.169.187:3306/changhun -e SPRING_DATASOURCE_USERNAME=root  -e SPRING_DATASOURCE_PASSWORD=1234 ${381492268966.dkr.ecr.ap-northeast-2.amazonaws.com/changhun}/changhun:latest
